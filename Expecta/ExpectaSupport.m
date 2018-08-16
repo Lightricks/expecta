@@ -32,7 +32,7 @@ id _EXPObjectify(const char *type, void *value) {
   } else if(strcmp(type, @encode(long long)) == 0 || strcmp(type, @encode(atomic_llong)) == 0) {
     obj = @(*(long long *)value);
   } else if(strcmp(type, @encode(short)) == 0 || strcmp(type, @encode(atomic_short)) == 0) {
-    obj = @(*(int *)value);
+    obj = @(*(short *)value);
   } else if(strcmp(type, @encode(unsigned char)) == 0 || strcmp(type, @encode(atomic_uchar)) == 0) {
     obj = @(*(unsigned char *)value);
   } else if(strcmp(type, @encode(unsigned int)) == 0 || strcmp(type, @encode(atomic_uint)) == 0) {
@@ -141,19 +141,19 @@ NSString *EXPDescribeObject(id obj) {
   return description;
 }
 
-void EXP_prerequisite(EXPBoolBlock block) {
+void EXP_prerequisite(EXPActualBoolBlock block) {
   [[[NSThread currentThread] threadDictionary][@"EXP_currentMatcher"] setPrerequisiteBlock:block];
 }
 
-void EXP_match(EXPBoolBlock block) {
+void EXP_match(EXPActualBoolBlock block) {
   [[[NSThread currentThread] threadDictionary][@"EXP_currentMatcher"] setMatchBlock:block];
 }
 
-void EXP_failureMessageForTo(EXPStringBlock block) {
+void EXP_failureMessageForTo(EXPActualStringBlock block) {
   [[[NSThread currentThread] threadDictionary][@"EXP_currentMatcher"] setFailureMessageForToBlock:block];
 }
 
-void EXP_failureMessageForNotTo(EXPStringBlock block) {
+void EXP_failureMessageForNotTo(EXPActualStringBlock block) {
   [[[NSThread currentThread] threadDictionary][@"EXP_currentMatcher"] setFailureMessageForNotToBlock:block];
 }
 
