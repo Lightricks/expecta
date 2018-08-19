@@ -6,36 +6,10 @@
 #import "EXPBlockDefinedMatcher.h"
 #import <libkern/OSAtomic.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation EXPExpect
-#pragma clang diagnostic pop
-
-@dynamic
-  actual,
-  to,
-  toNot,
-  notTo,
-  will,
-  willNot,
-  after;
-
-@synthesize
-  actualBlock=_actualBlock,
-  testCase=_testCase,
-  negative=_negative,
-  asynchronous=_asynchronous,
-  timeout=_timeout,
-  lineNumber=_lineNumber,
-  fileName=_fileName;
-
-- (instancetype)init {
-  return nil;
-}
 
 - (instancetype)initWithActualBlock:(id)actualBlock testCase:(id)testCase lineNumber:(int)lineNumber fileName:(const char *)fileName {
-  self = [super init];
-  if(self) {
+  if (self = [super init]) {
     self.actualBlock = actualBlock;
     self.testCase = testCase;
     self.negative = NO;
@@ -47,15 +21,8 @@
   return self;
 }
 
-- (void)dealloc
-{
-  [_actualBlock release];
-  _actualBlock = nil;
-  [super dealloc];
-}
-
 + (EXPExpect *)expectWithActualBlock:(id)actualBlock testCase:(id)testCase lineNumber:(int)lineNumber fileName:(const char *)fileName {
-  return [[[EXPExpect alloc] initWithActualBlock:actualBlock testCase:(id)testCase lineNumber:lineNumber fileName:fileName] autorelease];
+  return [[EXPExpect alloc] initWithActualBlock:actualBlock testCase:(id)testCase lineNumber:lineNumber fileName:fileName];
 }
 
 #pragma mark -
@@ -90,7 +57,7 @@
     return self;
   } copy];
 
-  return [block autorelease];
+  return block;
 }
 
 #pragma mark -
@@ -171,7 +138,6 @@
     EXPDynamicPredicateMatcher *matcher = [[EXPDynamicPredicateMatcher alloc] initWithExpectation:self selector:anInvocation.selector];
     [anInvocation setSelector:@selector(dispatch)];
     [anInvocation invokeWithTarget:matcher];
-    [matcher release];
   }
   else {
     [super forwardInvocation:anInvocation];
@@ -180,14 +146,7 @@
 
 @end
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 @implementation EXPDynamicPredicateMatcher
-#pragma clang diagnostic pop
-
-- (instancetype)init {
-  return nil;
-}
 
 - (instancetype)initWithExpectation:(EXPExpect *)expectation selector:(SEL)selector
 {
@@ -200,7 +159,15 @@
 
 - (BOOL)matches:(id)actual
 {
-  return (BOOL)[actual performSelector:_selector];
+  NSMethodSignature *signature = [actual methodSignatureForSelector:_selector];
+  if (signature.numberOfArguments != 2 ||
+      strcmp(signature.methodReturnType, @encode(BOOL))) {
+    return NO;
+  }
+
+  IMP imp = [actual methodForSelector:_selector];
+  BOOL (*method)(id, SEL) = (BOOL (*)(id, SEL))imp;
+  return method(actual, _selector);
 }
 
 - (NSString *)failureMessageForTo:(id)actual
@@ -215,11 +182,11 @@
 
 - (void (^)(void))dispatch
 {
-  __block id blockExpectation = _expectation;
+  __unsafe_unretained id blockExpectation = _expectation;
 
-  return [[^{
+  return [^{
     [blockExpectation applyMatcher:self];
-  } copy] autorelease];
+  } copy];
 }
 
 @end

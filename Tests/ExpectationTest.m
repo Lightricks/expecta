@@ -6,6 +6,9 @@
   NSNumber *n;
   NSValue *v;
 }
+
+- (void)foo;
+
 @end
 
 @interface ExpectedObject : NSObject
@@ -25,7 +28,6 @@
 
 - (void)dealloc {
   --_instanceCount;
-  [super dealloc];
 }
 
 static NSUInteger _instanceCount;
@@ -37,6 +39,9 @@ static NSUInteger _instanceCount;
 @end
 
 @implementation ExpectationTest
+
+- (void)foo {
+}
 
 - (void)test_expect {
   x = expect(@"foo");
@@ -180,7 +185,7 @@ static NSUInteger _instanceCount;
 }
 
 - (void)test_expect_block {
-  void (^b)() = ^{};
+  void (^b)(void) = ^{};
   void (^b2)(int a) = ^(int a) {};
   assertEqualObjects(expect(b).actual, b);
   assertEqualObjects(expect(b2).actual, b2);
@@ -227,10 +232,10 @@ static NSUInteger _instanceCount;
 }
 
 - (void)test_expect_memory_management {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  ExpectedObject *object = [[[ExpectedObject alloc] init] autorelease];
-  expect(object).to.equal(object);
-  [pool drain];
+  @autoreleasepool {
+    ExpectedObject *object = [[ExpectedObject alloc] init];
+    expect(object).to.equal(object);
+  }
 
   assertEquals([ExpectedObject instanceCount], 0);
 }

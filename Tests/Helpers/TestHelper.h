@@ -6,11 +6,22 @@
 #import "EXPExpect+Test.h"
 #import "Fixtures.h"
 
+#define IGNORE_RETAIN_SELF_BEGIN \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Wimplicit-retain-self\"")
+
+#define IGNORE_RETAIN_SELF_END \
+  _Pragma("clang diagnostic pop")
+
 #define assertPass(expr) \
-XCTAssertNoThrow((expr))
+  IGNORE_RETAIN_SELF_BEGIN \
+  XCTAssertNoThrow((expr)); \
+  IGNORE_RETAIN_SELF_END
 
 #define assertFail(expr, message...) \
-XCTAssertThrowsSpecificNamed(expr, NSException, ## message)
+  IGNORE_RETAIN_SELF_BEGIN \
+  XCTAssertThrowsSpecificNamed(expr, NSException, ## message); \
+  IGNORE_RETAIN_SELF_END
 
 #define assertEquals(a, b) XCTAssertEqual((a), (b))
 #define assertEqualObjects(a, b) XCTAssertEqualObjects((a), (b))

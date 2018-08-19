@@ -10,16 +10,11 @@
 #import "EXPMatcher.h"
 #import "EXPDefines.h"
 
-@interface EXPBlockDefinedMatcher : NSObject <EXPMatcher> {
-  EXPActualBoolBlock prerequisiteBlock;
-  EXPActualBoolBlock matchBlock;
-  EXPActualStringBlock failureMessageForToBlock;
-  EXPActualStringBlock failureMessageForNotToBlock;
-}
+@interface EXPBlockDefinedMatcher : NSObject <EXPMatcher>
 
-@property(nonatomic, copy) EXPActualBoolBlock prerequisiteBlock;
-@property(nonatomic, copy) EXPActualBoolBlock matchBlock;
-@property(nonatomic, copy) EXPActualStringBlock failureMessageForToBlock;
-@property(nonatomic, copy) EXPActualStringBlock failureMessageForNotToBlock;
+@property (nonatomic, copy) EXPActualBoolBlock prerequisiteBlock;
+@property (nonatomic, copy) EXPActualBoolBlock matchBlock;
+@property (nonatomic, copy) EXPActualStringBlock failureMessageForToBlock;
+@property (nonatomic, copy) EXPActualStringBlock failureMessageForNotToBlock;
 
 @end

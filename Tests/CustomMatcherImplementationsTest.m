@@ -15,6 +15,8 @@
 
 - (instancetype)initWithExpected:(NSString *)expected NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 @end
 
 @implementation MyCustomMatcherImpl
@@ -44,7 +46,6 @@ EXPMatcherInterface(_equalWithCustomMatcher, (id expected));
   return [^(id expected) {
     MyCustomMatcherImpl *customMatcher = [[MyCustomMatcherImpl alloc] initWithExpected:expected];
     [self applyMatcher:customMatcher];
-    [customMatcher release];
   } copy];
 }
 

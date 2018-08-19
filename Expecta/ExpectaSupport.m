@@ -47,29 +47,29 @@ id _EXPObjectify(const char *type, void *value) {
       // @encode(EXPBasicBlock) returns @? as of clang 4.1.
       // This condition must occur before the test for id/class type,
       // otherwise blocks will be treated as vanilla objects.
-      id actual = *(EXPBasicBlock *)value;
-      obj = [[actual copy] autorelease];
+      id actual = *(__strong EXPBasicBlock *)value;
+      obj = [actual copy];
   } else if((strstr(type, @encode(id)) != NULL) || (strstr(type, @encode(Class)) != 0)) {
-    obj = *(id *)value;
+    obj = *(__strong id *)value;
   } else if(strcmp(type, @encode(__typeof__(nil))) == 0) {
     obj = nil;
   } else if(strstr(type, "ff}{") != NULL || strstr(type, "=ff}") != NULL ||
             strstr(type, "=fff}") != NULL || strstr(type, "=ffff}") != NULL) {
     NSUInteger size;
     NSGetSizeAndAlignment(type, &size, NULL);
-    obj = [[[EXPFloatTuple alloc] initWithFloatValues:(float *)value
-                                                 size:size / sizeof(float)] autorelease];
+    obj = [[EXPFloatTuple alloc] initWithFloatValues:(float *)value
+                                                 size:size / sizeof(float)];
   } else if(strstr(type, "dd}{") != NULL || strstr(type, "=dd}") != NULL ||
             strstr(type, "=ddd}") != NULL || strstr(type, "=dddd}") != NULL) {
     NSUInteger size;
     NSGetSizeAndAlignment(type, &size, NULL);
-    obj = [[[EXPDoubleTuple alloc] initWithDoubleValues:(double *)value
-                                                   size:size / sizeof(double)] autorelease];
+    obj = [[EXPDoubleTuple alloc] initWithDoubleValues:(double *)value
+                                                   size:size / sizeof(double)];
   } else if(type[0] == '{') {
-    EXPUnsupportedObject *actual = [[[EXPUnsupportedObject alloc] initWithType:@"struct"] autorelease];
+    EXPUnsupportedObject *actual = [[EXPUnsupportedObject alloc] initWithType:@"struct"];
     obj = actual;
   } else if(type[0] == '(') {
-    EXPUnsupportedObject *actual = [[[EXPUnsupportedObject alloc] initWithType:@"union"] autorelease];
+    EXPUnsupportedObject *actual = [[EXPUnsupportedObject alloc] initWithType:@"union"];
     obj = actual;
   } else {
     void *actual = *(void **)value;

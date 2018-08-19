@@ -43,12 +43,6 @@ static NSInteger EXPFailTestLine = 28;
 @end
 
 @implementation TestCaseClassWithFailMethod
-@synthesize exception=_exception;
-
-- (void)dealloc {
-  self.exception = nil;
-  [super dealloc];
-}
 
 - (void)failWithException:(NSException *)exception {
   self.exception = exception;
@@ -58,23 +52,12 @@ static NSInteger EXPFailTestLine = 28;
 
 @implementation TestCaseClassWithRecordFailureMethod
 
-@synthesize
-  description=_description,
-  fileName=_fileName,
-  lineNumber=_lineNumber,
-  expected=_expected;
-
-- (void)dealloc {
-  self.description = nil;
-  self.fileName = nil;
-  [super dealloc];
-}
-
-- (void)recordFailureWithDescription:(NSString *)description inFile:(NSString *)filename atLine:(NSUInteger)lineNumber expected:(BOOL)expected {
-  self.description = description;
-  self.fileName = filename;
-  self.lineNumber = lineNumber;
-  self.expected = expected;
+- (void)recordFailureWithDescription:(NSString *)failureDescription inFile:(NSString *)filename
+                              atLine:(NSUInteger)lineNumber expected:(BOOL)expected {
+  _failureDescription = failureDescription;
+  _fileName = filename;
+  _lineNumber = lineNumber;
+  _expected = expected;
 }
 
 @end
@@ -93,21 +76,18 @@ static NSInteger EXPFailTestLine = 28;
     assertEqualObjects([exception name], @"Expecta Error");
     assertEqualObjects([exception reason], @"test.m:777 epic fail");
   }
-  [testCase release];
 }
 
 - (void)test_EXPFailWithTestCaseClassThatHasFailureMethod {
     // it calls recordFailureWithDescription:inFile:atLine:expected: method
     TestCaseClassWithRecordFailureMethod *testCase = [TestCaseClassWithRecordFailureMethod new];
-    assertNil(testCase.description);
+    assertNil(testCase.failureDescription);
     assertNil(testCase.fileName);
     [testCase fail];
-    assertEqualObjects(testCase.description, @"epic fail");
+    assertEqualObjects(testCase.failureDescription, @"epic fail");
     assertEqualObjects(testCase.fileName, @"test.m");
     assertEqualObjects(@(testCase.lineNumber), @777);
     assertEquals(testCase.expected, NO);
-    [testCase release];
 }
-
 
 @end

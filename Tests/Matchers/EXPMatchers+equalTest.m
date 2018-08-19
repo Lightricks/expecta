@@ -3,9 +3,18 @@
 
 @interface EXPMatchers_equalTest : XCTestCase
 
+- (void)foo;
+- (void)bar:(int)bar;
+
 @end
 
 @implementation EXPMatchers_equalTest
+
+- (void)foo {
+}
+
+- (void)bar:(int)bar {
+}
 
 - (void)test_equal_nil {
   assertPass(test_expect(nil).equal(nil));
@@ -21,16 +30,12 @@
   NSObject *foo = [NSObject new], *bar = [NSObject new];
   assertPass(test_expect(foo).equal(foo));
   assertFail(test_expect(foo).equal(bar), ([NSString stringWithFormat:@"expected: %@, got: %@", bar, foo]));
-  [foo release];
-  [bar release];
 }
 
 - (void)test_toNot_equal_object {
   NSObject *foo = [NSObject new], *bar = [NSObject new];
   assertPass(test_expect(foo).toNot.equal(bar));
   assertFail(test_expect(foo).toNot.equal(foo), ([NSString stringWithFormat:@"expected: not %@, got: %@", foo, foo]));
-  [foo release];
-  [bar release];
 }
 
 - (void)test_equal_NSString {
@@ -166,8 +171,8 @@
 }
 
 - (void)test_equal_block {
-  void (^block)() = ^{};
-  void (^block2)() = ^{};
+  void (^block)(void) = ^{};
+  void (^block2)(void) = ^{};
   assertPass(test_expect(block).equal(block));
   assertPass(test_expect(block).toNot.equal(block2));
 }
