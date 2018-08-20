@@ -77,8 +77,8 @@
             [NSString stringWithFormat:@"expecting a %@ is not supported", ((EXPUnsupportedObject *)actual).type]);
   } else {
     BOOL failed = NO;
-    if ([matcher respondsToSelector:@selector(meetsPrerequesiteFor:)] &&
-        ![matcher meetsPrerequesiteFor:actual]) {
+    if ([matcher respondsToSelector:@selector(meetsPrerequisiteFor:)] &&
+        ![matcher meetsPrerequisiteFor:actual]) {
       failed = YES;
     } else {
       BOOL matchResult = NO;

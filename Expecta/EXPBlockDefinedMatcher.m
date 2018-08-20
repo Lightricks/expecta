@@ -8,14 +8,29 @@
 
 #import "EXPBlockDefinedMatcher.h"
 
+@interface EXPBlockDefinedMatcher ()
+@property(nonatomic, copy) EXPActualBoolBlock prerequisiteBlock;
+@property(nonatomic, copy) EXPActualBoolBlock matchBlock;
+@property(nonatomic, copy) EXPActualStringBlock failureMessageForToBlock;
+@property(nonatomic, copy) EXPActualStringBlock failureMessageForNotToBlock;
+@end
+
 @implementation EXPBlockDefinedMatcher
 
-@synthesize prerequisiteBlock;
-@synthesize matchBlock;
-@synthesize failureMessageForToBlock;
-@synthesize failureMessageForNotToBlock;
+- (instancetype)initWithPrerequisiteBlock:(EXPActualBoolBlock)prerequisiteBlock
+                               matchBlock:(EXPActualBoolBlock)matchBlock
+                 failureMessageForToBlock:(EXPActualStringBlock)failureMessageForToBlock
+              failureMessageForNotToBlock:(EXPActualStringBlock)failureMessageForNotToBlock {
+  if (self = [super init]) {
+    self.prerequisiteBlock = prerequisiteBlock;
+    self.matchBlock = matchBlock;
+    self.failureMessageForToBlock = failureMessageForToBlock;
+    self.failureMessageForNotToBlock = failureMessageForNotToBlock;
+  }
+  return self;
+}
 
-- (BOOL)meetsPrerequesiteFor:(id)actual {
+- (BOOL)meetsPrerequisiteFor:(id)actual {
   if (self.prerequisiteBlock) {
     return self.prerequisiteBlock(actual);
   }

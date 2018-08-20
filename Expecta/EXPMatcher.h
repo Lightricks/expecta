@@ -14,7 +14,7 @@
 
 @optional
 
-- (BOOL)meetsPrerequesiteFor:(id)actual;
+- (BOOL)meetsPrerequisiteFor:(id)actual;
 - (NSString *)failureMessageForTo:(id)actual;
 - (NSString *)failureMessageForNotTo:(id)actual;
 

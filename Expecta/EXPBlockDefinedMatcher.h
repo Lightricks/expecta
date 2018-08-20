@@ -12,9 +12,17 @@
 
 @interface EXPBlockDefinedMatcher : NSObject <EXPMatcher>
 
-@property (nonatomic, copy) EXPActualBoolBlock prerequisiteBlock;
-@property (nonatomic, copy) EXPActualBoolBlock matchBlock;
-@property (nonatomic, copy) EXPActualStringBlock failureMessageForToBlock;
-@property (nonatomic, copy) EXPActualStringBlock failureMessageForNotToBlock;
+- (instancetype)initWithPrerequisiteBlock:(EXPActualBoolBlock)prerequisiteBlock
+                               matchBlock:(EXPActualBoolBlock)matchBlock
+                 failureMessageForToBlock:(EXPActualStringBlock)failureMessageForToBlock
+              failureMessageForNotToBlock:(EXPActualStringBlock)failureMessageForNotToBlock
+    NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
+
+@property(nonatomic, readonly) EXPActualBoolBlock prerequisiteBlock;
+@property(nonatomic, readonly) EXPActualBoolBlock matchBlock;
+@property(nonatomic, readonly) EXPActualStringBlock failureMessageForToBlock;
+@property(nonatomic, readonly) EXPActualStringBlock failureMessageForNotToBlock;
 
 @end
