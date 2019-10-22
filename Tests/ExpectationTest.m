@@ -2,7 +2,6 @@
 #import "NSValue+Expecta.h"
 
 @interface ExpectationTest : XCTestCase {
-  EXPExpect *x;
   NSNumber *n;
   NSValue *v;
 }
@@ -39,68 +38,89 @@ static NSUInteger _instanceCount;
 @implementation ExpectationTest
 
 - (void)test_expect {
-  x = expect(@"foo");
-  assertEquals(x.lineNumber, (__LINE__ - 1));
+  EXPExpect *x = expect(@"foo");
+  x.completed = YES;
+  assertEquals(x.lineNumber, (__LINE__ - 2));
   assertTrue(strcmp(x.fileName, __FILE__) == 0);
   assertEquals(x.testCase, self);
 }
 
 - (void)test_expect_NotTo {
-  x = expect(@"foo");
+  EXPExpect *x = expect(@"foo");
+  x.completed = YES;
   assertFalse(x.negative);
   x = expect(@"foo").notTo;
+  x.completed = YES;
   assertTrue(x.negative);
   x = expect(@"foo").toNot;
+  x.completed = YES;
   assertTrue(x.negative);
 }
 
 - (void)test_expect_nil {
-  assertNil(expect(nil).actual);
+  EXPExpect *x = expect(nil);
+  x.completed = YES;
+  assertNil(x.actual);
 }
 
 - (void)test_expect_object {
-  assertEqualObjects(expect(@"foo").actual, @"foo");
+  EXPExpect *x = expect(@"foo");
+  x.completed = YES;
+  assertEqualObjects(x.actual, @"foo");
 }
 
 - (void)test_expect_SEL {
-  v = [NSValue valueWithPointer:@selector(foo)];
-  x = expect(@selector(foo));
+  v = [NSValue valueWithPointer:@selector(description)];
+  EXPExpect *x = expect(@selector(description));
+  x.completed = YES;
   assertEqualObjects(x.actual, v);
   assertTrue(strcmp([(NSValue *)x.actual _EXP_objCType], @encode(SEL)) == 0);
 }
 
 - (void)test_expect_Class {
-  assertEqualObjects(expect([EXPExpect class]).actual, [EXPExpect class]);
+  EXPExpect *x = expect([EXPExpect class]);
+  x.completed = YES;
+  assertEqualObjects(x.actual, [EXPExpect class]);
 }
 
 - (void)test_expect_CString {
   char *foo = "foo";
   v = [NSValue valueWithPointer:foo];
-  assertEqualObjects(expect(foo).actual, v);
+  EXPExpect *x = expect(foo);
+  x.completed = YES;
+  assertEqualObjects(x.actual, v);
 }
 
 - (void)test_expect_char {
   char a = 127;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_double {
   double a = 3.141592653589793;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_float {
   float a = 3.141592f;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_int {
   int a = 2147483647;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_long {
@@ -110,19 +130,25 @@ static NSUInteger _instanceCount;
   long a = 2147483647;
 #endif
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_long_long {
   long long a = 9223372036854775807;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_short {
   short a = 32767;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_NSInteger {
@@ -132,19 +158,25 @@ static NSUInteger _instanceCount;
   NSInteger a = 2147483647;
 #endif
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_unsigned_char {
   unsigned char a = 255;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_unsigned_int {
   unsigned int a = 4294967295;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_unsigned_long {
@@ -154,19 +186,25 @@ static NSUInteger _instanceCount;
   unsigned long a = 4294967295;
 #endif
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_unsigned_long_long {
   unsigned long long a = 18446744073709551615u;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_unsigned_short {
   unsigned short a = 65535;
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
 - (void)test_expect_NSUInteger {
@@ -176,14 +214,23 @@ static NSUInteger _instanceCount;
   NSUInteger a = 4294967295;
 #endif
   n = @(a);
-  assertEqualObjects(expect(a).actual, n);
+  EXPExpect *x = expect(a);
+  x.completed = YES;
+  assertEqualObjects(x.actual, n);
 }
 
-- (void)test_expect_block {
-  void (^b)() = ^{};
-  void (^b2)(int a) = ^(int a) {};
-  assertEqualObjects(expect(b).actual, b);
-  assertEqualObjects(expect(b2).actual, b2);
+- (void)test_expect_void_block {
+  void (^b)(void) = ^{};
+  EXPExpect *x = expect(b);
+  x.completed = YES;
+  assertEqualObjects(x.actual, b);
+}
+
+- (void)test_expect_parameter_block {
+  void (^b)(int a) = ^(int a) {};
+  EXPExpect *x = expect(b);
+  x.completed = YES;
+  assertEqualObjects(x.actual, b);
 }
 
 - (void)test_expect_union {
