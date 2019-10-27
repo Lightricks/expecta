@@ -20,6 +20,7 @@
 @property(nonatomic) BOOL negative;
 @property(nonatomic) BOOL asynchronous;
 @property(nonatomic) NSTimeInterval timeout;
+@property(nonatomic) BOOL completed;
 
 @property(nonatomic, readonly) EXPExpect *to;
 @property(nonatomic, readonly) EXPExpect *toNot;

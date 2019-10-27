@@ -43,12 +43,16 @@
     self.timeout = [Expecta asynchronousTestTimeout];
     self.lineNumber = lineNumber;
     self.fileName = fileName;
+    self.completed = NO;
   }
   return self;
 }
 
 - (void)dealloc
 {
+  if (!self.completed) {
+    EXPFail(self.testCase, self.lineNumber, self.fileName, @"Called expect() without a matcher");
+  }
   [_actualBlock release];
   _actualBlock = nil;
   [super dealloc];
@@ -103,6 +107,7 @@
 }
 
 - (void)applyMatcher:(id<EXPMatcher>)matcher {
+  self.completed = YES;
   id actual = self.actual;
   
   if([actual isKindOfClass:[EXPUnsupportedObject class]]) {
