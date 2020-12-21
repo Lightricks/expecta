@@ -1,5 +1,6 @@
 #import "EXPMatchers+equal.h"
 #import "EXPMatcherHelpers.h"
+#import "EXPDifference.h"
 
 EXPMatcherImplementationBegin(_equal, (id expected)) {
   match(^BOOL(id actual) {
@@ -25,7 +26,12 @@ EXPMatcherImplementationBegin(_equal, (id expected)) {
     NSString *actualDescription = EXPDescribeObject(actual);
 
     if (![expectedDescription isEqualToString:actualDescription]) {
-      return [NSString stringWithFormat:@"expected: %@, got: %@", EXPDescribeObject(expected), EXPDescribeObject(actual)];
+      NSString *message = [NSString stringWithFormat:@"expected: %@, got: %@", EXPDescribeObject(expected), EXPDescribeObject(actual)];
+      if ([expected respondsToSelector:@selector(differenceFrom:)]) {
+        NSArray *difference = [expected differenceFrom:actual];
+        return [NSString stringWithFormat:@"%@\n\n%@", [difference componentsJoinedByString:@"\n"], message];
+      }
+      return message;
     } else {
       return [NSString stringWithFormat:@"expected (%@): %@, got (%@): %@", NSStringFromClass([expected class]), EXPDescribeObject(expected), NSStringFromClass([actual class]), EXPDescribeObject(actual)];
     }

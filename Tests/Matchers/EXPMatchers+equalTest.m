@@ -255,5 +255,24 @@ typedef struct SomeFloatPairPair {
     assertFail(test_expect(@"http://hello.world").equal(url), @"expected (NSURL): http://hello.world, got (__NSCFConstantString): http://hello.world");
 }
 
+- (void)test_equal_array_difference {
+  NSArray *lines = @[
+    @"Mismatch at index (1)",
+    @"\tExpected: (6)",
+    @"\tActual: (2)",
+    @"Wrong index for value: (1)",
+    @"\tExpected at index (2)",
+    @"\tActual index is (0)",
+    @"Actual contains extra item",
+    @"\tindex: (4)",
+    @"\tvalue: (5)",
+    @"Actual misses an item at index (3)",
+    @"\tExpected: (9)",
+    @"",
+    @"expected: (3, 6, 1, 9, 4), got: (1, 2, 3, 4, 5)"
+  ];
+
+  assertFail(test_expect((@[@1, @2, @3, @4, @5])).equal(@[@3, @6, @1, @9, @4]), [lines componentsJoinedByString:@"\n"]);
+}
 
 @end
