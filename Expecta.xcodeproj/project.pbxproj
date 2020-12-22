@@ -272,6 +272,11 @@
 		908379DE1A8B9978009844DA /* Expecta.h in Headers */ = {isa = PBXBuildFile; fileRef = 908379DD1A8B990A009844DA /* Expecta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		908379DF1A8B997D009844DA /* Expecta.h in Headers */ = {isa = PBXBuildFile; fileRef = 908379DD1A8B990A009844DA /* Expecta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94B11BF72590A9E300188B44 /* EXPDifference.h in Headers */ = {isa = PBXBuildFile; fileRef = 94B11BF62590A9E300188B44 /* EXPDifference.h */; };
+		94B11C292590B03900188B44 /* NSArray+Difference.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B11C262590B03900188B44 /* NSArray+Difference.m */; };
+		94B11C432590C15200188B44 /* NSArray+DifferenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B11C412590C15200188B44 /* NSArray+DifferenceTest.m */; };
+		94B11C542590C22500188B44 /* NSArray+Difference.h in Headers */ = {isa = PBXBuildFile; fileRef = 94B11C522590C22500188B44 /* NSArray+Difference.h */; };
+		94FD9F3C2591E8370031C911 /* NSArray+DifferenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B11C412590C15200188B44 /* NSArray+DifferenceTest.m */; };
+		94FD9F4C2591E83E0031C911 /* NSArray+Difference.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B11C262590B03900188B44 /* NSArray+Difference.m */; };
 		9C44170B17FF409D00978F09 /* EXPMatchers+beInTheRangeOfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 61740D841425689A00091DDF /* EXPMatchers+beInTheRangeOfTest.m */; };
 		9C44170C17FF409D00978F09 /* EXPMatchers+beIdenticalToTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E942971113B45ADD0038708B /* EXPMatchers+beIdenticalToTest.m */; };
 		9C44170D17FF409D00978F09 /* EXPMatchers+beInstanceOfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E9ACDF7613B2DEB70010F4D7 /* EXPMatchers+beInstanceOfTest.m */; };
@@ -460,6 +465,9 @@
 		908379DD1A8B990A009844DA /* Expecta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Expecta.h; sourceTree = "<group>"; };
 		908379E51A8B9F13009844DA /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
 		94B11BF62590A9E300188B44 /* EXPDifference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EXPDifference.h; sourceTree = "<group>"; };
+		94B11C262590B03900188B44 /* NSArray+Difference.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Difference.m"; sourceTree = "<group>"; };
+		94B11C412590C15200188B44 /* NSArray+DifferenceTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+DifferenceTest.m"; sourceTree = "<group>"; };
+		94B11C522590C22500188B44 /* NSArray+Difference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Difference.h"; sourceTree = "<group>"; };
 		9C4416F917FF3F4A00978F09 /* libExpectaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libExpectaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A305755D1520BCCB00DA19BD /* EXPMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPMatcher.h; sourceTree = "<group>"; };
 		A30575611520BDCD00DA19BD /* EXPBlockDefinedMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPBlockDefinedMatcher.h; sourceTree = "<group>"; };
@@ -720,6 +728,8 @@
 				E9ACDF4213B2DDC60010F4D7 /* EXPUnsupportedObject.m */,
 				88183A88216CAA8900047E67 /* Matchers */,
 				E9ACDF5513B2DDC60010F4D7 /* NSObject+Expecta.h */,
+				94B11C522590C22500188B44 /* NSArray+Difference.h */,
+				94B11C262590B03900188B44 /* NSArray+Difference.m */,
 				E9ACDF5613B2DDC60010F4D7 /* NSValue+Expecta.h */,
 				E9ACDF5713B2DDC60010F4D7 /* NSValue+Expecta.m */,
 				908379E41A8B9EE1009844DA /* Support */,
@@ -739,6 +749,7 @@
 				E9ACDF9613B2E0BB0010F4D7 /* Helpers */,
 				E9ACDF7413B2DEB70010F4D7 /* Matchers */,
 				E9BDBAA614BE1CD900102FB5 /* MiscTest.m */,
+				94B11C412590C15200188B44 /* NSArray+DifferenceTest.m */,
 				E9ACDF7C13B2DEB70010F4D7 /* NSValue+ExpectaTest.m */,
 				E9ACDFA113B2E0CC0010F4D7 /* Support */,
 			);
@@ -820,6 +831,7 @@
 				908379591A8B96FF009844DA /* EXPMatchers+conformTo.h in Headers */,
 				9083795A1A8B96FF009844DA /* EXPMatchers+beTruthy.h in Headers */,
 				94B11BF72590A9E300188B44 /* EXPDifference.h in Headers */,
+				94B11C542590C22500188B44 /* NSArray+Difference.h in Headers */,
 				9083795B1A8B96FF009844DA /* EXPMatchers+beFalsy.h in Headers */,
 				9083795C1A8B96FF009844DA /* EXPMatchers+equal.h in Headers */,
 				9083795D1A8B96FF009844DA /* EXPMatchers+contain.h in Headers */,
@@ -1195,6 +1207,7 @@
 				3A0A59A61AD441CB003DA3E4 /* EXPMatchers+conformToTest.m in Sources */,
 				3A0A59A71AD441CB003DA3E4 /* EXPFailTest.m in Sources */,
 				3A0A59A81AD441CB003DA3E4 /* AsynchronousTestingTest.m in Sources */,
+				94B11C432590C15200188B44 /* NSArray+DifferenceTest.m in Sources */,
 				3A0A59A91AD441CB003DA3E4 /* EXPMatchers+beLessThanTest.m in Sources */,
 				3A0A59AA1AD441CB003DA3E4 /* EXPMatchers+beLessThanOrEqualToTest.m in Sources */,
 				3A0A59AB1AD441CB003DA3E4 /* EXPMatchers+postNotificationTest.m in Sources */,
@@ -1218,6 +1231,7 @@
 			files = (
 				9083792C1A8B96DA009844DA /* EXPDoubleTuple.m in Sources */,
 				9083792D1A8B96DA009844DA /* EXPFloatTuple.m in Sources */,
+				94B11C292590B03900188B44 /* NSArray+Difference.m in Sources */,
 				9083792E1A8B96DA009844DA /* EXPMatchers+endWith.m in Sources */,
 				9083792F1A8B96DA009844DA /* EXPMatchers+beginWith.m in Sources */,
 				908379301A8B96DA009844DA /* EXPMatchers+postNotification.m in Sources */,
@@ -1352,6 +1366,7 @@
 				E930681613B2E85700EA26FF /* EXPMatchers+beSubclassOf.m in Sources */,
 				54C6B1F3180CA74E00E13146 /* EXPMatchers+beSupersetOf.m in Sources */,
 				E930681813B2E85B00EA26FF /* EXPMatchers+beTruthy.m in Sources */,
+				94FD9F4C2591E83E0031C911 /* NSArray+Difference.m in Sources */,
 				E930681913B2E85E00EA26FF /* EXPMatchers+equal.m in Sources */,
 				E94296FB13B430DF0038708B /* EXPMatchers+contain.m in Sources */,
 				E942971913B45C8F0038708B /* EXPMatchers+beIdenticalTo.m in Sources */,
@@ -1401,6 +1416,7 @@
 				541B02B21805E260000DA87C /* EXPMatchers+conformToTest.m in Sources */,
 				E969C52613B60234006BB8B1 /* EXPFailTest.m in Sources */,
 				E9AFC43B13C482D3006B4F2A /* AsynchronousTestingTest.m in Sources */,
+				94FD9F3C2591E8370031C911 /* NSArray+DifferenceTest.m in Sources */,
 				AE0E76FD13FF37D6009AF5D8 /* EXPMatchers+beLessThanTest.m in Sources */,
 				AEBA779614055CA2001690B6 /* EXPMatchers+beLessThanOrEqualToTest.m in Sources */,
 				27B61930182F4DF30075C95F /* EXPMatchers+postNotificationTest.m in Sources */,
