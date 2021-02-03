@@ -29,6 +29,11 @@ EXPMatcherImplementationBegin(_equal, (id expected)) {
       NSString *message = [NSString stringWithFormat:@"expected: %@, got: %@", EXPDescribeObject(expected), EXPDescribeObject(actual)];
       if ([expected respondsToSelector:@selector(differenceFrom:)]) {
         NSArray *difference = [expected differenceFrom:actual];
+        
+        if (!difference) {
+          return [NSString stringWithFormat:@"expected (%@): %@, got (%@): %@", NSStringFromClass([expected class]), EXPDescribeObject(expected), NSStringFromClass([actual class]), EXPDescribeObject(actual)];
+        }
+        
         return [NSString stringWithFormat:@"%@\n\n%@", [difference componentsJoinedByString:@"\n"], message];
       }
       return message;
