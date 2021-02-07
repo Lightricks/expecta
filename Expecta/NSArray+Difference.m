@@ -39,9 +39,18 @@ API_AVAILABLE(ios(13.0))
 
 @implementation NSArray (Difference)
 
-- (NSArray<NSString *> *)differenceFrom:(id)object
+- (NSArray<NSString *> *)differenceFrom:(nullable id)object
     API_AVAILABLE(ios(13.0)) {
-  assert([object isKindOfClass:NSArray.class]);
+  if (!object) {
+    return @[@"Expected: NSArray, got: nil"];
+  }
+
+  if (![object isKindOfClass:[NSArray class]]) {
+    return @[
+      [NSString stringWithFormat:@"Expected: NSArray, got: %@", NSStringFromClass([object class])]
+    ];
+  }
+
   NSArray *expected = self;
   NSArray *actual = (NSArray *)object;
 

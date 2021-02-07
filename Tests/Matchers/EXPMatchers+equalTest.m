@@ -275,4 +275,24 @@ typedef struct SomeFloatPairPair {
   assertFail(test_expect((@[@1, @2, @3, @4, @5])).equal(@[@3, @6, @1, @9, @4]), [lines componentsJoinedByString:@"\n"]);
 }
 
+- (void)test_equal_array_difference_from_nonarray {
+  NSArray *lines = @[
+    @"Expected: NSArray, got: __NSCFNumber",
+    @"",
+    @"expected: (1, 2), got: 8"
+  ];
+
+  assertFail(test_expect((@8)).equal(@[@1, @2]), [lines componentsJoinedByString:@"\n"]);
+}
+
+- (void)test_equal_array_difference_from_nil {
+  NSArray *lines = @[
+    @"Expected: NSArray, got: nil",
+    @"",
+    @"expected: (1, 2), got: nil/null"
+  ];
+
+  assertFail(test_expect((nil)).equal(@[@1, @2]), [lines componentsJoinedByString:@"\n"]);
+}
+
 @end

@@ -15,7 +15,7 @@
   return NO;
 }
 
-- (nonnull NSArray<NSString *> *)differenceFrom:(id)object {
+- (nonnull NSArray<NSString *> *)differenceFrom:(nullable id)object {
   return @[@"wink-wink"];
 }
 
