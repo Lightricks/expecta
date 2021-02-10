@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///  @"string:",
 ///  @"  Expected: something",
 ///  @"    Actual: something else"]
-- (NSArray<NSString *> *)differenceFrom:(id)object;
+- (NSArray<NSString *> *)differenceFrom:(nullable id)object;
 
 @end
 
